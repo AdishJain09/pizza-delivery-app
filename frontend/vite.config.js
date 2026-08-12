@@ -7,7 +7,7 @@ export default defineConfig({
   host: "127.0.0.1",
   port: 5174,
   proxy: {
-    "/api": "http://localhost:5000"
+    "/api": "https://pizza-delivery-app-d4r7.onrender.com"
     }
   }
 });
