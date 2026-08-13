@@ -1,7 +1,9 @@
 import axios from "axios";
 
-export const userApi = axios.create({ baseURL: "/api" });
-export const adminApi = axios.create({ baseURL: "/api" });
+const API_BASE_URL = import.meta.env.VITE_API_URL || "/api";
+
+export const userApi = axios.create({ baseURL: API_BASE_URL });
+export const adminApi = axios.create({ baseURL: API_BASE_URL });
 
 userApi.interceptors.request.use((config) => {
   const token = localStorage.getItem("userToken");
