@@ -22,11 +22,11 @@ export const register = async (req, res) => {
   });
 
   const verifyUrl = `${process.env.CLIENT_URL}/verify-email/${verifyToken}`;
-  await sendEmail({
+  sendEmail({
     to: email,
     subject: "Verify your Pizza Delivery account",
     html: `<p>Hi ${name},</p><p>Click below to verify your email:</p><a href="${verifyUrl}">${verifyUrl}</a>`
-  });
+  }).catch((err) => console.error("Failed to send verification email:", err.message));
 
   res.status(201).json({ message: "Registered. Please check your email to verify your account.", userId: user._id });
 };
@@ -74,11 +74,11 @@ export const forgotPassword = async (req, res) => {
   await user.save();
 
   const resetUrl = `${process.env.CLIENT_URL}/reset-password/${resetToken}`;
-  await sendEmail({
+  sendEmail({
     to: email,
     subject: "Reset your Pizza Delivery password",
     html: `<p>Click below to reset your password. This link expires in 30 minutes.</p><a href="${resetUrl}">${resetUrl}</a>`
-  });
+  }).catch((err) => console.error("Failed to send reset email:", err.message));
 
   res.json({ message: "If that email exists, a reset link has been sent." });
 };
